@@ -12,6 +12,11 @@ import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import path from 'path';
 
+//securities
+import helmet from 'helmet';
+import xss from 'xss-clean';
+import mongoSanitize from 'express-mongo-sanitize';
+
 //db and authenticateUser
 import connectDB from './db/connect.js'; //above middleware
 
@@ -34,6 +39,11 @@ app.use(express.static(path.resolve(__dirname, './client/build')));
 
 // app.use(cors());
 app.use(express.json());
+
+//securities
+app.use(helmet());
+app.use(xss());
+app.use(mongoSanitize());
 
 //dummy route
 // app.get('/', (req, res) => {
